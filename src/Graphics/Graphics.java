@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowEvent;
 
 public class Graphics {
     public enum State{
@@ -20,14 +21,7 @@ public class Graphics {
     private Position mousePosition = new Position(0,0);
 
     public Graphics() {
-        currentBoard = new State[][]{
-                {State.CROSS, State.EMPTY, State.EMPTY},
-                {State.EMPTY, State.CIRCLE, State.EMPTY},
-                {State.EMPTY, State.EMPTY, State.EMPTY}
-        };
         open();
-
-
     }
 
     private void open(){
@@ -139,6 +133,10 @@ public class Graphics {
         frame.setSize(500,500);
 
         frame.setVisible(true);
+    }
+
+    public void close(){
+        panel.getParent().dispatchEvent(new WindowEvent((Window) panel.getParent(), WindowEvent.WINDOW_CLOSING));
     }
 
     public Position getRealToBoardPosition(int x, int y){
