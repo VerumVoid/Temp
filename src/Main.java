@@ -1,7 +1,8 @@
 import Graphics.Graphics;
+import Logic.Board;
 
 public class Main {
     public static void main(String[] args) {
-        Graphics g = new Graphics();
+        Board board = new Board();
     }
 }

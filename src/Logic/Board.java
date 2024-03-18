@@ -5,14 +5,20 @@ import Graphics.Graphics;
 
 public class Board {
 
-    Graphics.Graphics.State[][] board;
+    Graphics.State[][] board = new Graphics.State[3][3];
 
     private int currentPlayer = 0;
-    private int sideLength;
+    private int sideLength = 3;
 
     private int winingPieces;
 
     private int winner;
+
+    public Board() {
+        setBoard();
+        graphics.setBoard(board);
+    }
+
     public void setBoard(){
         for (int i = 0; i < sideLength; i++){
             for(int j = 0; j < sideLength; j++){
@@ -37,11 +43,15 @@ public class Board {
         public void clicked(Position position) {
             if (currentPlayer == 0){
                 board[position.getY()][position.getX()] = State.CROSS;
-                //currentPlayer = 1;
+                currentPlayer = 1;
             }
             else {
                 board[position.getY()][position.getX()] = State.CIRCLE;
-                //currentPlayer = 0;
+                currentPlayer = 0;
+            }
+            graphics.setBoard(board);
+            if(isFinished(position)){
+                graphics.close();
             }
         }
     };
@@ -49,7 +59,7 @@ public class Board {
     public boolean isFinished(Position position){
         int row = position.getY();
         int column = position.getX();
-        Graphics.Graphics.State currentState = board[column][row];
+        Graphics.State currentState = board[column][row];
         int matching = 1;
         boolean helper = false;
 
